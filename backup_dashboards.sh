@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 URL="https://grafana.contoso.com"
