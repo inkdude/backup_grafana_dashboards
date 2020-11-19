@@ -18,12 +18,14 @@ do
     for d in $(curl -sS -k -H "Authorization: Bearer $KEY" $URL/api/search\?query\=\& | jq --arg f "$f" '.[] | select(( .type == "dash-db")and .folderTitle == $f) | .uri ' | tr -d \")
     do
 	normal_name=$(echo $d | sed 's/^...//')
-        curl -sS -k -H "Authorization: Bearer $KEY" $URL/api/dashboards/$d | jq '.dashboard' > $DASH_DIR$f/$normal_name.json
+        curl -sS -k -H "Authorization: Bearer $KEY" $URL/api/dashboards/$d | jq '.dashboard' > $DASH_DIR/$f/$normal_name.json
     done
 done
+
+# copy dashboards from "General" folder
 
 for wf in $(curl -sS -k -H "Authorization: Bearer $KEY" $URL/api/search\?query\=\& | jq --arg f "$f" '.[] | select(( .type == "dash-db")and .folderTitle == null) | .uri ' | tr -d \")
 do
 	normal_name=$(echo $wf | sed 's/^...//')
-	curl -sS -k -H "Authorization: Bearer $KEY" $URL/api/dashboards/$wf | jq '.dashboard' > $DASH_DIR$normal_name.json
+	curl -sS -k -H "Authorization: Bearer $KEY" $URL/api/dashboards/$wf | jq '.dashboard' > $DASH_DIR/$normal_name.json
 done
